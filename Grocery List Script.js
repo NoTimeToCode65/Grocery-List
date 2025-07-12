@@ -5,8 +5,10 @@ const categoryMap = {
   bakery: ['bread', 'bagel', 'bun', 'croissant'],
   frozen: ['pizza', 'ice cream', 'frozen', 'waffles'],
   drinks: ['water', 'soda', 'juice', 'tea', 'coffee'],
-  other: [] 
+  other: []
 };
+
+let groceryData = {};
 
 function detectCategory(itemText) {
   const lowerItem = itemText.toLowerCase();
@@ -18,55 +20,92 @@ function detectCategory(itemText) {
   return 'other';
 }
 
-function addItem() {
-  const input = document.getElementById('itemInput');
-  const itemText = input.value.trim();
-  if (itemText === "") return;
+function addItem(itemText, category, isCrossed = false) {
+  if (!itemText) return;
 
-  const category = detectCategory(itemText);
-  let list = document.getElementById(`${category}-list`);
+  if (!groceryData[category]) {
+    groceryData[category] = [];
+  }
 
-  if (!list) {
-    const container = document.getElementById('groceryContainer');
+  groceryData[category].push({ text: itemText, crossed: isCrossed });
+  renderList();
+  saveToLocalStorage();
+}
+
+function renderList() {
+  const container = document.getElementById('groceryContainer');
+  container.innerHTML = '';
+
+  for (const category in groceryData) {
+    if (groceryData[category].length === 0) continue;
 
     const heading = document.createElement('h2');
     heading.textContent = category.charAt(0).toUpperCase() + category.slice(1);
     heading.classList.add('category-heading');
 
-    list = document.createElement('ul');
+    const list = document.createElement('ul');
     list.id = `${category}-list`;
+
+    const sortedItems = groceryData[category].sort((a, b) => a.text.localeCompare(b.text));
+
+    sortedItems.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item.text;
+      if (item.crossed) li.classList.add('crossed');
+
+      li.addEventListener('click', () => {
+        item.crossed = !item.crossed;
+        li.classList.toggle('crossed');
+        saveToLocalStorage();
+      });
+
+      list.appendChild(li);
+    });
 
     container.appendChild(heading);
     container.appendChild(list);
   }
-
-  const li = document.createElement('li');
-  li.textContent = itemText;
-  li.classList.add('list-item');
-
-  li.addEventListener('click', function () {
-    li.classList.toggle('crossed');
-  });
-
-  list.appendChild(li);
-  sortListAlphabetically(list);
-
-  input.value = "";
 }
 
-function sortListAlphabetically(list) {
-  const items = Array.from(list.children);
-  items.sort((a, b) => a.textContent.localeCompare(b.textContent));
-  list.innerHTML = '';
-  items.forEach(item => list.appendChild(item));
+function saveToLocalStorage() {
+  localStorage.setItem('groceryList', JSON.stringify(groceryData));
+}
+
+function loadFromLocalStorage() {
+  const stored = localStorage.getItem('groceryList');
+  if (stored) {
+    groceryData = JSON.parse(stored);
+    renderList();
+  }
+}
+
+function clearList() {
+  if (confirm("Are you sure you want to clear the entire grocery list?")) {
+    groceryData = {};
+    localStorage.removeItem('groceryList');
+    renderList();
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('addButton').addEventListener('click', addItem);
+  loadFromLocalStorage();
+
+  document.getElementById('addButton').addEventListener('click', () => {
+    const input = document.getElementById('itemInput');
+    const itemText = input.value.trim();
+    const category = detectCategory(itemText);
+    addItem(itemText, category);
+    input.value = '';
+  });
 
   document.getElementById('itemInput').addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
-      addItem();
+      const itemText = event.target.value.trim();
+      const category = detectCategory(itemText);
+      addItem(itemText, category);
+      event.target.value = '';
     }
   });
+
+  document.getElementById('clearButton').addEventListener('click', clearList);
 });
