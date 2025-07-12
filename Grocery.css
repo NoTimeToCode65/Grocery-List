@@ -55,7 +55,6 @@ li:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Category Heading Styling */
 .category-heading {
   margin-top: 30px;
   font-size: 32px;
@@ -68,18 +67,16 @@ li:hover {
   margin-left: 40px;
 }
 
-/* Category List Styling */
 #groceryContainer ul {
   margin: 10px 0 30px 40px;
   padding-left: 20px;
-  list-style-type: disc; /* Enable bullet points */
+  list-style-type: disc; 
   width: fit-content;
   background-color: #f1f1f1;
   border-radius: 10px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Grocery List Item Styling (inherits your old li styles) */
 #groceryContainer li {
   padding: 10px;
   margin: 5px 0;
@@ -88,10 +85,9 @@ li:hover {
   background-color: #f9f9f9;
   font-family: 'GreekFont';
   font-size: 30px;
-  list-style-position: inside; /* Keeps bullet next to text */
+  list-style-position: inside; 
 }
 
-/* Crossed-out items still look the same */
 .crossed {
   text-decoration: line-through;
   color: red;
