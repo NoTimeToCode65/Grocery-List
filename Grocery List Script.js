@@ -9,7 +9,6 @@ function addItem() {
     li.textContent = itemText;
     li.classList.add('list-item');
 
-    // Click to cross out
     li.addEventListener('click', function () {
       li.classList.toggle('crossed');
     });
@@ -17,7 +16,6 @@ function addItem() {
     list.appendChild(li);
     input.value = "";
 
-    // Sort items alphabetically after adding
     sortListAlphabetically();
   }
 }
@@ -28,7 +26,6 @@ function sortListAlphabetically() {
 
   items.sort((a, b) => a.textContent.localeCompare(b.textContent));
 
-  // Clear the list and append sorted items
   list.innerHTML = '';
   items.forEach(item => list.appendChild(item));
 }
