@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'GreekFont';
+    src: url(Greek-Freak.ttf) format('truetype');
+}
+
+h1 {
+    text-align: center;
+    color: #C0B054;
+    font-family: 'GreekFont';
+    font-size: 100px;
+    text-decoration: underline;
+    margin-top: 20px;
+}
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #3d3e79;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+      width: 250px;
+      font-size: 16px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin-left: 10px;
+      display: block;
+      margin: 20px auto;
+    }
+
+    ul {
+      margin-top: 20px;
+      list-style-type: disc;
+      padding: 0;
+      width: 300px;
+    }
+
+    li {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-family: 'GreekFont';
+  font-size: 30px;
+}
+
+li:hover {
+  background-color: #e6ffe6;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Category Heading Styling */
+.category-heading {
+  margin-top: 30px;
+  font-size: 32px;
+  color: #ffffff;
+  font-family: 'GreekFont';
+  text-transform: uppercase;
+  border-bottom: 2px solid #C0B054;
+  padding-bottom: 5px;
+  text-align: left;
+  margin-left: 40px;
+}
+
+/* Category List Styling */
+#groceryContainer ul {
+  margin: 10px 0 30px 40px;
+  padding-left: 20px;
+  list-style-type: disc; /* Enable bullet points */
+  width: fit-content;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Grocery List Item Styling (inherits your old li styles) */
+#groceryContainer li {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-family: 'GreekFont';
+  font-size: 30px;
+  list-style-position: inside; /* Keeps bullet next to text */
+}
+
+/* Crossed-out items still look the same */
+.crossed {
+  text-decoration: line-through;
+  color: red;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+ 
