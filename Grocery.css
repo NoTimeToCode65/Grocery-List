@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'GreekFont';
-    src: url(Greek-Freak.ttf);
+    src: url(Greek-Freak.ttf) format('truetype');
 }
 
 h1 {
